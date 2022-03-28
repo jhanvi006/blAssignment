@@ -1,35 +1,35 @@
 #!/bin/bash -x
 
-function calculateWorkingHr(){
-	case $1 in
-			0)
-				workingHr=0;
-				;;
-			1)
-				workingHr=16;
-				;;
-			2)
-				workingHr=8;
-				;;
-	esac;
-	echo $workingHr;
-}
-
 perHrSalary=20;
 totalSalary=0;
 totalWorkingHr=0;
 day=1;
 
+checkWorkingTime=$((RANDOM%3));
+case $checkWorkingTime in
+	0)
+   #employee is absent
+   workingHour=0;
+	;;
+	1)
+	#employee is present and working part time
+	workingHour=8;
+	;;
+	2) 
+	#employee is present and working full time
+	workingHour=16;
+	;;
+esac
+
 while [[ $day -le 20 && $totalWorkingHr -lt 40 ]]
 do
-	wHr=$(calculateWorkingHr $((RANDOM%3)) );
-	totalWorkingHr=$(($totalWorkingHr+$wHr));
+	totalWorkingHr=$(($totalWorkingHr+$workingHour));
 	if [ $totalWorkingHr -gt 40 ]
 	then
-		totalWorkingHr=$(($totalWorkingHr-$wHr));
+		totalWorkingHr=$(($totalWorkingHr-$workingHour));
 		break;
 	fi
-	salary=$(($perHrSalary*$wHr));
+	salary=$(($perHrSalary*$workingHour));
 	totalSalary=$(($totalSalary+$salary));
 	((day++));
 done
