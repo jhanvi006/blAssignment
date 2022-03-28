@@ -21,14 +21,9 @@ case $checkWorkingTime in
 	;;
 esac
 
-while [[ $day -le 20 && $totalWorkingHr -lt 40 ]]
+while [[ $day -le 20 ]]
 do
 	totalWorkingHr=$(($totalWorkingHr+$workingHour));
-	if [ $totalWorkingHr -gt 40 ]
-	then
-		totalWorkingHr=$(($totalWorkingHr-$workingHour));
-		break;
-	fi
 	salary=$(($perHrSalary*$workingHour));
 	totalSalary=$(($totalSalary+$salary));
 	((day++));
